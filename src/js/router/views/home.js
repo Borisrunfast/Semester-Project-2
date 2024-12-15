@@ -14,12 +14,14 @@ const searchBar = document.getElementById("searchBar");
 const loggedInUsername = getFromStorage("userData")?.name || "";
 
 // Update user data (e.g., credits) if logged in
-if (loggedInUsername) {
-  const updatedUser = await getProfileByName(loggedInUsername);
-  if (updatedUser) {
-    putToStorage("userData", updatedUser.data);
+(async () => {
+  if (loggedInUsername) {
+    const updatedUser = await getProfileByName(loggedInUsername);
+    if (updatedUser) {
+      putToStorage("userData", updatedUser.data);
+    }
   }
-}
+})();
 
 // Pagination and search state
 let currentQuery = "";
