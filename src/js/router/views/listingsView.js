@@ -134,7 +134,7 @@ function renderMediaCarousel(media) {
 
   const imageElement = document.createElement("img");
   imageElement.className = "rounded-md w-full h-full object-contain transition-all";
-  imageElement.src = media[currentImageIndex].url || "/public/noImage.jpg";
+  imageElement.src = media[currentImageIndex].url || "/noImage.jpg";
   imageElement.alt = media[currentImageIndex].alt || "";
   mediaContainer.appendChild(imageElement);
 
@@ -163,7 +163,7 @@ function createCarouselButton(symbol, direction) {
     currentImageIndex = direction === "left"
       ? (currentImageIndex - 1 + listingData.media.length) % listingData.media.length
       : (currentImageIndex + 1) % listingData.media.length;
-    mediaContainer.querySelector("img").src = listingData.media[currentImageIndex].url || "/public/noImage.jpg";
+    mediaContainer.querySelector("img").src = listingData.media[currentImageIndex].url || "/noImage.jpg";
     mediaContainer.querySelector("img").alt = listingData.media[currentImageIndex].alt || "";
   });
 

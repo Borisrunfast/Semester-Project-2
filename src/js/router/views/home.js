@@ -118,7 +118,7 @@ async function renderListings(query = "", page = 1) {
 
       listingCard.innerHTML = `
         <img
-          src="${media[0]?.url || "/public/noImage.jpg"}"
+          src="${media[0]?.url || "/noImage.jpg"}"
           alt="${media[0]?.alt || "No Image"}"
           class="w-full h-48 object-contain rounded-md mb-4 aspect-video"
         />
