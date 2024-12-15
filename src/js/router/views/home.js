@@ -14,6 +14,7 @@ const searchBar = document.getElementById("searchBar");
 const loggedInUsername = getFromStorage("userData")?.name || "";
 
 // Update user data (e.g., credits) if logged in
+// Async function fixes Top level async error in Netlify
 (async () => {
   if (loggedInUsername) {
     const updatedUser = await getProfileByName(loggedInUsername);
