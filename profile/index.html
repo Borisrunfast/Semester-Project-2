@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tags for Character Encoding and Responsive Design -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Page Title -->
+    <title>Profile</title>
+    
+    <!-- Main JavaScript File -->
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  
+  <!-- Updated body tag with flex layout -->
+  <body class="flex flex-col min-h-screen bg-background text-text">
+    <!-- Navigation Bar -->
+    <nav class="bg-primary p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/" class="text-white text-lg font-bold">Auction House</a>
+
+        <!-- Hamburger Menu (Mobile) -->
+        <button id="mobileMenuToggle" class="text-white md:hidden focus:outline-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+
+        <!-- Desktop Navigation Links -->
+        <div id="desktopNavLinks" class="hidden md:flex space-x-4 items-center text-white">
+          <a href="/" class="hover:text-accent">Home</a>
+          <a href="/profile/" class="hover:text-accent">Profile</a>
+          <a href="/listings/create/" class="hover:text-accent">Create Listing</a>
+          <a id="desktopLoginLink" href="/auth/login/" class="hover:text-accent hidden">Login</a>
+          <a id="desktopRegisterLink" href="/auth/register/" class="hover:text-accent hidden">Register</a>
+          <button id="desktopLogoutButton" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800 hidden">
+            Logout
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobileMenu"
+          class="hidden absolute top-14 left-0 w-full bg-primary text-white flex flex-col items-end space-y-2 p-4 md:hidden"
+        >
+          <a href="/" class="hover:text-accent">Home</a>
+          <a href="/profile/" class="hover:text-accent">Profile</a>
+          <a href="/listings/create/" class="hover:text-accent">Create Listing</a>
+          <a id="mobileLoginLink" href="/auth/login/" class="hover:text-accent hidden">Login</a>
+          <a id="mobileRegisterLink" href="/auth/register/" class="hover:text-accent hidden">Register</a>
+          <div>
+            <button
+              id="mobileLogoutButton"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800 hidden"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Updated main content area with flex-grow -->
+    <div class="container mx-auto py-8 space-y-8 w-11/12 md:w-3/5 flex-grow">
+      <!-- Profile Section -->
+      <div class="bg-white p-6 rounded-md shadow-md">
+        <div class="flex items-center space-x-4">
+          <!-- Profile Avatar -->
+          <img
+            id="profileAvatar"
+            src=""
+            alt="Profile Avatar"
+            class="w-24 h-24 rounded-full border border-gray-300"
+          />
+          <div>
+            <!-- Profile Name -->
+            <h1 id="profileName" class="text-2xl font-bold text-primary"></h1>
+            <!-- Profile Bio -->
+            <p id="profileBio" class="text-text mt-2"></p>
+            <!-- Profile Credits -->
+            <p id="profileCredits" class="text-gray-600 mt-1"></p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <!-- Update Profile Button -->
+          <button
+            id="updateProfileBtn"
+            class="bg-accent text-white px-4 py-2 rounded-md hover:bg-green-600"
+          >
+            Update Profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Bids, Wins & Listings Section -->
+      <div class="bg-white p-6 rounded-md shadow-md space-y-4">
+        <div class="flex space-x-4">
+          <!-- Toggle Buttons -->
+          <button id="toggleBidsBtn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700">
+            Bids
+          </button>
+          <button id="toggleWinsBtn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700">
+            Wins
+          </button>
+          <button id="toggleListingsBtn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700">
+            Listings
+          </button>
+        </div>
+
+        <!-- Bids Section -->
+        <div id="bidsSection" class="hidden">
+          <h2 class="text-xl font-bold text-primary mb-2">Your Bids</h2>
+          <div id="bidsContainer" class="space-y-4">Loading...</div>
+        </div>
+
+        <!-- Wins Section -->
+        <div id="winsSection" class="hidden">
+          <h2 class="text-xl font-bold text-primary mb-2">Your Wins</h2>
+          <div id="winsContainer" class="space-y-4">Loading...</div>
+        </div>
+
+        <!-- Listings Section -->
+        <div id="listingsSection" class="hidden">
+          <h2 class="text-xl font-bold text-primary mb-2">Your Listings</h2>
+          <div id="listingsContainer" class="space-y-4">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Profile Modal -->
+    <div
+      id="updateModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
+      <div class="bg-white p-6 rounded-md w-96 shadow-lg">
+        <h2 class="text-xl font-bold text-primary mb-4">Update Profile</h2>
+        <!-- Update Profile Form -->
+        <form id="updateProfileForm" class="space-y-4">
+          <!-- Input: Bio -->
+          <div>
+            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+            <textarea
+              id="bio"
+              name="bio"
+              placeholder="Enter your bio"
+              class="w-full px-4 py-3 border rounded-md"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Input: Avatar URL -->
+          <div>
+            <label for="avatar" class="block text-sm font-medium text-gray-700">Avatar URL</label>
+            <input
+              id="avatar"
+              name="avatar"
+              type="url"
+              placeholder="Enter avatar URL"
+              class="w-full px-4 py-3 border rounded-md"
+              required
+            />
+          </div>
+
+          <!-- Input: Banner URL -->
+          <div>
+            <label for="banner" class="block text-sm font-medium text-gray-700">Banner URL</label>
+            <input
+              id="banner"
+              name="banner"
+              type="url"
+              placeholder="Enter banner URL"
+              class="w-full px-4 py-3 border rounded-md"
+            />
+          </div>
+
+          <div class="flex justify-end space-x-4">
+            <!-- Cancel Button -->
+            <button
+              type="button"
+              id="cancelUpdateBtn"
+              class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+            >
+              Cancel
+            </button>
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="px-4 py-2 bg-accent text-white rounded-md hover:bg-green-600"
+            >
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-primary text-white py-6 mt-12">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+        <!-- Navigation Links & Contact Information -->
+        <div class="flex flex-col space-y-2 md:space-y-1">
+          <div class="flex flex-col md:flex-row md:space-x-4 text-sm">
+            <a href="/" class="hover:text-accent">Home</a>
+            <a href="/profile/" class="hover:text-accent">Profile</a>
+            <a href="/listings/create/" class="hover:text-accent">Create Listing</a>
+            <a href="/auth/login/" id="footerLoginLink" class="hover:text-accent hidden">Login</a>
+            <a href="/auth/register/" id="footerRegisterLink" class="hover:text-accent hidden">Register</a>
+          </div>
+          <p class="text-sm">
+            Contact us: <a href="mailto:info@example.com" class="hover:underline">info@example.com</a> | <span>+1 (555) 123-4567</span>
+          </p>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="flex space-x-4 text-white">
+          <!-- Facebook Icon -->
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="hover:text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" fill="currentColor" class="w-5 h-5">
+              <path d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 
+              c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 
+              C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z"></path>
+            </svg>
+          </a>
+          
+          <!-- Twitter Icon -->
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-accent">
+            <svg fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" clip-rule="evenodd" viewBox="0 0 512 462.799">
+              <path fill-rule="nonzero" d="M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom Text -->
+      <div class="mt-4 text-center text-sm">
+        © 2024 Auction House. All Rights Reserved.
+      </div>
+    </footer>
+    
+  </body>
+</html>
